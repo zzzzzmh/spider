@@ -166,7 +166,7 @@ class IndexController extends Controller
         // jp_sources.source_icon
         // jp_stores.icon
 
-        $path = "/data/wwwroot/spider/static/201603/19/";
+        $root_path = "/data/wwwroot/spider/static/201603/19/";
         $model = D('Commodity');
         $sql = "select id,icon_url from jp_commodity";
         $res = $model->query($sql);
@@ -175,7 +175,7 @@ class IndexController extends Controller
                 $str = file_get_contents($value['icon_url']);
                 if (strlen($str)>1000) {
                     $filename = time().rand(1000, 9999).".png";
-                    file_put_contents($path.$filename, $str);
+                    file_put_contents($root_path.$filename, $str);
                     $path = "/static/201603/19/".$filename;
                     $sql = "update jp_commodity set icon_url='$path' where id='".$value['id']."'";
                     echo $sql.";\n";
@@ -191,7 +191,7 @@ class IndexController extends Controller
                 $str = file_get_contents($value['jp_images']);
                 if (strlen($str)>1000) {
                     $filename = time().rand(1000, 9999).".png";
-                    file_put_contents($path.$filename, $str);
+                    file_put_contents($root_path.$filename, $str);
                     $path = "/static/201603/19/".$filename;
                     $sql = "update jp_images set path='$path' where id='".$value['id']."'";
                     echo $sql.";\n";
@@ -207,7 +207,7 @@ class IndexController extends Controller
                 $str = file_get_contents($value['source_icon']);
                 if (strlen($str)>1000) {
                     $filename = time().rand(1000, 9999).".png";
-                    file_put_contents($path.$filename, $str);
+                    file_put_contents($root_path.$filename, $str);
                     $path = "/static/201603/19/".$filename;
                     $sql = "update jp_sources set source_icon='$path' where id='".$value['id']."'";
                     echo $sql.";\n";
@@ -215,7 +215,7 @@ class IndexController extends Controller
                 }
             }
         }
-        
+
         $sql = "select id,icon from jp_stores";
         $res = $model->query($sql);
         foreach ($res as $value) {
@@ -223,7 +223,7 @@ class IndexController extends Controller
                 $str = file_get_contents($value['icon']);
                 if (strlen($str)>1000) {
                     $filename = time().rand(1000, 9999).".png";
-                    file_put_contents($path.$filename, $str);
+                    file_put_contents($root_path.$filename, $str);
                     $path = "/static/201603/19/".$filename;
                     $sql = "update jp_stores set icon='$path' where id='".$value['id']."'";
                     echo $sql.";\n";
