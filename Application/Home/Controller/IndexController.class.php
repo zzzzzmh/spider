@@ -161,5 +161,75 @@ class IndexController extends Controller
 
     public function get_images()
     {
+        // jp_commodity.icon_url
+        // jp_images.path
+        // jp_sources.source_icon
+        // jp_stores.icon
+
+        $path = "/data/wwwroot/spider/static/201603/19/";
+        $model = D('Commodity');
+        $sql = "select id,icon_url from jp_commodity";
+        $res = $model->query($sql);
+        foreach ($res as $value) {
+            if ($value['icon_url']) {
+                $str = file_get_contents($value['icon_url']);
+                if (strlen($str)>1000) {
+                    $filename = time().rand(1000, 9999).".png";
+                    file_put_contents($path.$filename, $str);
+                    $path = "/static/201603/19/".$filename;
+                    $sql = "update jp_commodity set icon_url='$path' where id='".$value['id']."'";
+                    echo $sql.";\n";
+                    //$model->execute($sql);
+                }
+            }
+        }
+
+        $sql = "select id,path from jp_images";
+        $res = $model->query($sql);
+        foreach ($res as $value) {
+            if ($value['jp_images']) {
+                $str = file_get_contents($value['jp_images']);
+                if (strlen($str)>1000) {
+                    $filename = time().rand(1000, 9999).".png";
+                    file_put_contents($path.$filename, $str);
+                    $path = "/static/201603/19/".$filename;
+                    $sql = "update jp_images set path='$path' where id='".$value['id']."'";
+                    echo $sql.";\n";
+                    //$model->execute($sql);
+                }
+            }
+        }
+
+        $sql = "select id,source_icon from jp_sources";
+        $res = $model->query($sql);
+        foreach ($res as $value) {
+            if ($value['source_icon']) {
+                $str = file_get_contents($value['source_icon']);
+                if (strlen($str)>1000) {
+                    $filename = time().rand(1000, 9999).".png";
+                    file_put_contents($path.$filename, $str);
+                    $path = "/static/201603/19/".$filename;
+                    $sql = "update jp_sources set source_icon='$path' where id='".$value['id']."'";
+                    echo $sql.";\n";
+                    //$model->execute($sql);
+                }
+            }
+        }
+        
+        $sql = "select id,icon from jp_stores";
+        $res = $model->query($sql);
+        foreach ($res as $value) {
+            if ($value['icon']) {
+                $str = file_get_contents($value['icon']);
+                if (strlen($str)>1000) {
+                    $filename = time().rand(1000, 9999).".png";
+                    file_put_contents($path.$filename, $str);
+                    $path = "/static/201603/19/".$filename;
+                    $sql = "update jp_stores set icon='$path' where id='".$value['id']."'";
+                    echo $sql.";\n";
+                    //$model->execute($sql);
+                }
+            }
+        }
     }
 }
